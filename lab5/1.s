@@ -1,93 +1,100 @@
 .data
 
-prompt: .asciiz "Nhap so: "
-P: .asciiz "Chu vi:    "
-S: .asciiz "Dien tich: "
+prompt: .asciiz "Nhap so:   "
+P: 	.asciiz "Chu vi:    "
+S: 	.asciiz "Dien tich: "
+
+v1: 		.float 2.0
+zero_val: 	.float 0.0
+endl: 		.asciiz "\n"
 
 .text
-
-
 .globl main
 
 
 main:
 
+#############
+# Variables
+# $f3 = canh 1
+# $f4 = canh 2
+# $f5 = dien tich
+# $f6 = chu vi
+#
+# $f0 for temp
+# $f2 is for compare flag
+#
+
+
+# data setup
+l.s $f5, zero_val
+l.s $f6, zero_val
+
+# input data
 la $a0, prompt
 
 li $v0, 4
 syscall
 li $v0, 6
 syscall
-mov.d $f2, $f0
+mov.s $f3, $f0 # input $f3
 
 li $v0, 4
 syscall
 li $v0, 6
 syscall
-mov.d $f4, $f0
+mov.s $f4, $f0 # input $f4
 
-mtc1.d $0, $f0
-mtc1.d $0, $f1
+mtc1 $0, $f0
 
 # compare if negative
-c.le.d $f2, $f0
+c.le.s $f3, $f0
 bc1t exit
-c.le.d $f4, $f0
+c.le.s $f4, $f0
 bc1t exit
 
 # compare if zero
-c.eq.d $f2, $f0
-bc1t zero
-c.eq.d $f4, $f0
-bc1t zero
+c.eq.s $f3, $f0
+bc1t print
+c.eq.s $f4, $f0
+bc1t print
 
 # else do calculation 
-# and save in f6 and f8
+# and save in f8 and f10
 
 # S
-mul.d $f6, $f2, $f4
+mul.s $f5, $f3, $f4
 
 # P
-add.d $f8, $f2, $f4
-li $t0, 2
-mtc1.d $t0, $f0
-mul.d $f8, $f8, $f0
+add.s $f6, $f3, $f4
+l.s $f0, v1 		# load $f0 = 2
+mul.s $f6, $f6, $f0	# $f6 = $f6 * 2
 
 # print out answer
+print:
 la $a0, P
 li $v0, 4
 syscall
-mov.d $f12, $f8
+mov.s $f12, $f6
 li $v0, 2
 syscall
+la $a0, endl
+li $v0, 4
+syscall
+
 
 la $a0, S
 li $v0, 4
 syscall
-mov.d $f12, $f6
+mov.s $f12, $f5
 li $v0, 2
 syscall
-
-j exit
-
-
-zero:
-la $a0, P
+la $a0, endl
 li $v0, 4
 syscall
-mov.d $f12, $f0
-li $v0, 2
-syscall
 
-la $a0, S
-li $v0, 4
-syscall
-mov.d $f12, $f0
-li $v0, 2
-syscall
 
-exit:
 # exit
+exit:
 li $v0, 10
 syscall
-
