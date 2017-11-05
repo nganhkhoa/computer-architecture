@@ -7,9 +7,7 @@
 ---
 Use monofonts and an appropriate markdown viewer
 
-markdown viewer should be able to handle KaTex
-
-Or view online [here]()
+Or view online [here](https://raw.githubusercontent.com/nganhkhoa/computer-architecture/master/lab6/lab6.md)
 ---
 
 ### Bài 1
@@ -129,4 +127,4 @@ Sign-Extend:
 
 = 150 + 10 = 160
 
-Longest Lantancy = Load = 550 ns
+Longest Lantancy = Load = 550 ns = Cycle time
