@@ -113,18 +113,18 @@ Sign-Extend:
 
 = Instruction Memory + Registers + Mux (RegDst) + Sign Extend + Mux (ALUSrc) + ALU + Registers + Mux(PCSrc) 
 
-= 150 + 100 + 10 + 10 + 10 + 100 + 100 + 10 = 490
+= 150 + 100 + 10 + 10 + 10 + 100 + 100 + 10 = 490 ns
 
 - Branch
 
 = Instruction Memory + Register + Mux(ALUSrc) + ALU + Mux(PCSrc) 
 
-= 150 + 100 + 10 + 100 + 10 = 370
+= 150 + 100 + 10 + 100 + 10 = 370 ns
 
 - Jump
 
 = Insstruction Memory + Mux(PCSrc) 
 
-= 150 + 10 = 160
+= 150 + 10 = 160 ns
 
 Longest Lantancy = Load = 550 ns = Cycle time
